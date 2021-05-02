@@ -30,6 +30,7 @@ class RepositoryDetails : AppCompatActivity() {
     private var branchDetailsList = ArrayList<DataBranches>()
     private var issueDetailsList = ArrayList<DataIssues>()
     private lateinit var queue1: RequestQueue
+    private lateinit var loading: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +48,12 @@ class RepositoryDetails : AppCompatActivity() {
 
         tvRepoName.text = name
         tvDescription.text = description
+        loading = ProgressDialog(this)
+        loading.startProgressDialog()
         queue1 = Volley.newRequestQueue(this)
         callVolleyforBranches(1)
         callVolleyforIssues(1)
+
 
 
 //        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -165,8 +169,8 @@ class RepositoryDetails : AppCompatActivity() {
                         val commitObj = responseObj.getJSONObject("commit")
                         val branch = DataBranches(owner, name, responseObj.getString("name"), commitObj.getString("sha"))
                         branchDetailsList.add(branch)
-                        callVolleyforBranches(pageNumber+1)
                     }
+                        callVolleyforBranches(pageNumber+1)
                     }
                     else {
                         Log.d("Tarzan","else branch executed")
@@ -190,19 +194,22 @@ class RepositoryDetails : AppCompatActivity() {
 
         val jsonArrayRequest2 = JsonArrayRequest(Request.Method.GET, url2, null,
                 { response ->
-                    if(pageNumber<3) {
+                    if(response.length() > 0) {
                         for (i in 0..response.length() - 1) {
                             val responseObj = response.getJSONObject(i)
                             val userObj = responseObj.getJSONObject("user")
-                            val issue = DataIssues(responseObj.getString("title"), userObj.getString("login"), userObj.getString("avatar_url"))
+                            val issue = DataIssues(owner, name,responseObj.getString("title"), userObj.getString("login"), userObj.getString("avatar_url"))
                             issueDetailsList.add(issue)
-                            callVolleyforIssues(pageNumber+1)
 
                         }
+                        callVolleyforIssues(pageNumber+1)
                     }
                     else{
                         Log.d("Tarzan","else issues executed")
-                        setAllViews()}
+                        setAllViews()
+                        loading.dismissProgressDialog()
+
+                    }
 
 
                 },

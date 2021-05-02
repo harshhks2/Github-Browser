@@ -28,16 +28,16 @@ class RVACommits (private val dataSet: ArrayList<DataCommits>) : RecyclerView.Ad
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        if(viewType == 1) {
+//        if(viewType == 1) {
             val view = LayoutInflater.from(viewGroup.context)
                     .inflate(R.layout.commit_item, viewGroup, false)
             return ViewHolder(view)
-        }
-        else {
-            val view = LayoutInflater.from(viewGroup.context)
-                    .inflate(R.layout.load_more, viewGroup, false)
-            return ViewHolder(view)
-        }
+//        }
+//        else {
+//            val view = LayoutInflater.from(viewGroup.context)
+//                    .inflate(R.layout.load_more, viewGroup, false)
+//            return ViewHolder(view)
+//        }
 
 
 
@@ -45,7 +45,7 @@ class RVACommits (private val dataSet: ArrayList<DataCommits>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(viewHolder:ViewHolder, position: Int) {
-        if(!dataSet.isNullOrEmpty() && position < dataSet.size-1) {
+        if(!dataSet.isNullOrEmpty()) {
             viewHolder.tvCommitDate.text = dataSet[position].commitDate.subSequence(0,10)
             viewHolder.tvCommitMessage.text = dataSet[position].commitMessage
             viewHolder.tvUserName.text = dataSet[position].userName
@@ -55,11 +55,11 @@ class RVACommits (private val dataSet: ArrayList<DataCommits>) : RecyclerView.Ad
 
     }
 
-    override fun getItemViewType(position: Int): Int {
-        if(position >= dataSet.size-1)
-        return 2
-        else return 1
-    }
+//    override fun getItemViewType(position: Int): Int {
+//        if(position >= dataSet.size-1)
+//        return 2
+//        else return 1
+//    }
 
     override fun getItemCount() = dataSet.size
 

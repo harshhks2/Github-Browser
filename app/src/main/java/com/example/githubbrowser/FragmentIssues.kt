@@ -1,6 +1,7 @@
 package com.example.githubbrowser
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 class FragmentIssues(private val issueDetailsList: ArrayList<DataIssues>) : Fragment() {
 
     private lateinit var rvIssues: RecyclerView
+    var pageNumber = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,11 +23,11 @@ class FragmentIssues(private val issueDetailsList: ArrayList<DataIssues>) : Frag
         rvIssues = view.findViewById(R.id.rvIssues)
         rvIssues.adapter = RVAIssues(issueDetailsList)
         rvIssues.layoutManager = LinearLayoutManager(rvIssues.context)
+        Handler().postDelayed({
+            rvIssues.adapter?.notifyDataSetChanged()
+        }, 1000)
 
         return view
-
-
-
     }
 
     companion object {
