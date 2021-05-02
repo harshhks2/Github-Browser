@@ -44,8 +44,8 @@ class RepositoryDetails : AppCompatActivity() {
 
         tvRepoName.text = name
         tvDescription.text = description
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val queue1 = Volley.newRequestQueue(this)
         val url1 = "https://api.github.com/repos/${owner}/${tvRepoName.text}/branches"
