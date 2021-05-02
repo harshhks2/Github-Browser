@@ -38,47 +38,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-//        repolist.add(Repository("yes","joker"))
-//        repolist.add(Repository("no","joker"))
-//        repolist.add(Repository("yes","hi"))
-//        repolist.add(Repository("wow","wow"))
-//        repolist.add(Repository("tda","jor"))
         val db = DatabaseHelper(this)
         repolist = db.readData() as ArrayList<DataRepository>
-        //var descriptionList: MutableList<String> = ArrayList()
-
-//        for(i in repolist) {
-//            val queue = Volley.newRequestQueue(this)
-//            val url = "https://api.github.com/repos/${i.owner}/${i.name}"
-//            var text = "Not Available"
-//
-//            //Toast.makeText(this, url, Toast.LENGTH_LONG).show()
-//            //val url = "https://api.github.com/repos/harshhks2/RoutineMaker"
-//            //val url = "https://www.metaweather.com//api/${owner}/${repo}/"
-//
-//            val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
-//                    { response ->
-//                        text = response.getString("description").toString()
-//                        if(text=="null") text = "Not Available"
-//                        //Log.d("Tarzan",text)
-//                        descriptionList.add(text)
-//
-//                    },
-//                    { error ->
-//                        descriptionList.add("Not Available")
-//                        //Log.d("Tarzan","Not")
-//                    }
-//            )
-//            //Log.d("Tarzan",text)
-//
-//            queue.add(jsonObjectRequest)
-//        }
-//        Thread.sleep(2000)
-        //Log.d("Tarzan",descriptionList.toString())
-
-
-
 
 
         if(repolist.isEmpty()) {
@@ -91,12 +52,7 @@ class MainActivity : AppCompatActivity() {
             rvRepositories.layoutManager = LinearLayoutManager(this)
         }
 
-
-
-
-
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main,menu)

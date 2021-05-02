@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import java.lang.Exception
 
 
 class RVABranches(private val dataSet: ArrayList<DataBranches>) :
@@ -39,6 +41,7 @@ class RVABranches(private val dataSet: ArrayList<DataBranches>) :
             viewHolder.tvBranchName.text = dataSet[position].branchName
             val context = viewHolder.tvBranchName.context
 
+            try{
             viewHolder.cvBranches.setOnClickListener() {
 
                 var intent = Intent(context, Commits::class.java)
@@ -46,6 +49,16 @@ class RVABranches(private val dataSet: ArrayList<DataBranches>) :
                 intent.putExtra("owner", dataSet[position].owner)
                 intent.putExtra("name", dataSet[position].name)
                 context.startActivity(intent)
+            }}
+            catch(e: Exception) {
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("Error")
+                builder.setMessage("Some error occurred while loading lhe content of commits of this branch. Please try again later.")
+                builder.setPositiveButton("Ok") { dialog, which ->
+
+                }
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
             }
         }
     }

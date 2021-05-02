@@ -31,46 +31,11 @@ class FragmentBranches(private val branchDetailsList: ArrayList<DataBranches>) :
         rvBranches = view.findViewById(R.id.rvBranches)
         rvBranches.adapter = RVABranches(branchDetailsList)
         rvBranches.layoutManager = LinearLayoutManager(rvBranches.context)
-//        if(branchDetailsList.isNotEmpty()){owner = branchDetailsList[0].owner
-//        name = branchDetailsList[0].name}
-
 
         return view
 
-
     }
-//    fun callVolleyforBranches(pageNumber: Int) {
-//
-//        val queue1 = Volley.newRequestQueue(context)
-//        val url1 = "https://api.github.com/repos/${owner}/${name}/branches?page=${pageNumber}"
-//        var text1 = "Not Available"
-//
-//
-//        val jsonArrayRequest1 = JsonArrayRequest(Request.Method.GET, url1, null,
-//                { response ->
-//                    if(response.length() > 0){
-//                        for (i in 0..response.length() - 1) {
-//                            val responseObj = response.getJSONObject(i)
-//                            val commitObj = responseObj.getJSONObject("commit")
-//                            val branch = DataBranches(owner, name, responseObj.getString("name"), commitObj.getString("sha"))
-//                            branchDetailsList.add(branch)
-//                            callVolleyforBranches(pageNumber+1)
-//                        }
-//                    }
-//                    else {
-//                        Log.d("Tarzan","else branch executed")
-//
-//                    }
-//
-//                },
-//                { error ->
-//
-//                }
-//        )
-//        queue1.add(jsonArrayRequest1)
-////        val branch = DataBranches(owner,name,"name", "sha")
-////        branchDetailsList.add(branch)
-//    }
+
 
     companion object {
         fun newInstance(branchDetailsList: ArrayList<DataBranches>) = FragmentBranches(branchDetailsList)

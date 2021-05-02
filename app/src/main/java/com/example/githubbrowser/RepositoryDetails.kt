@@ -55,105 +55,6 @@ class RepositoryDetails : AppCompatActivity() {
         callVolleyforIssues(1)
 
 
-
-//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
-
-//        val issue = DataIssues("title", "login","avatar_url")
-//        issueDetailsList.add(issue)
-
-//        rvBranches = findViewById(R.id.rvBranches)
-//        rvIssues = findViewById(R.id.rvIssues)
-
-//        val fragmentList = arrayListOf(
-//                FragmentBranches.newInstance(branchDetailsList),
-//                FragmentIssues.newInstance(issueDetailsList),
-//        )
-//
-//        viewPager2.adapter = ViewPagerAdapter(this, fragmentList)
-//        var tabTitles = arrayOf("Branches", "Issues(0)")
-//
-//
-//
-//
-//        TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
-//            tab.text = tabTitles[position]
-//            viewPager2.setCurrentItem(tab.position, true)
-////            if(position==0){
-////                supportFragmentManager.beginTransaction().apply {
-////                    replace(R.id.llFragmentsHolder, branchFragment)
-////                    commit()
-////                }
-////            }
-////            else if(position==1){
-////                supportFragmentManager.beginTransaction().apply {
-////                    replace(R.id.llFragmentsHolder, issueFragment)
-////                    commit()
-////                }
-////            }
-//
-//
-//        }.attach()
-
-
-
-
-//        val queue1 = Volley.newRequestQueue(this)
-//        val url1 = "https://api.github.com/repos/${owner}/${tvRepoName.text}/branches"
-//        var text1 = "Not Available"
-//
-//
-//        val jsonArrayRequest1 = JsonArrayRequest(Request.Method.GET, url1, null,
-//                { response ->
-//                    for(i in 0..response.length()-1) {
-//                        val responseObj = response.getJSONObject(i)
-//                        val commitObj = responseObj.getJSONObject("commit")
-//                        val branch = DataBranches(owner,name,responseObj.getString("name"), commitObj.getString("sha"))
-//                        branchDetailsList.add(branch)
-//                    }
-//
-//                },
-//                { error ->
-//
-//                }
-//        )
-//        queue1.add(jsonArrayRequest1)
-//        val branch = DataBranches(owner,name,"name", "sha")
-//        branchDetailsList.add(branch)
-//
-//        val queue2 = Volley.newRequestQueue(this)
-//        val url2 = "https://api.github.com/repos/${owner}/${name}/issues?state=open"
-//        var text2 = "Not Available"
-//
-//
-//        val jsonArrayRequest2 = JsonArrayRequest(Request.Method.GET, url2, null,
-//                { response ->
-//                    for(i in 0..response.length()-1) {
-//                        val responseObj = response.getJSONObject(i)
-//                        val userObj = responseObj.getJSONObject("user")
-//                        val issue = DataIssues(responseObj.getString("title"), userObj.getString("login"),userObj.getString("avatar_url"))
-//                        issueDetailsList.add(issue)
-//                    }
-//
-//                },
-//                { error ->
-//
-//                }
-//        )
-//        queue2.add(jsonArrayRequest2)
-//        val issue = DataIssues("title", "login","avatar_url")
-//        issueDetailsList.add(issue)
-//        Thread.sleep(5000)
-//
-//
-//
-//        rvBranches.adapter = RVABranches(branchDetailsList)
-//        rvBranches.layoutManager = LinearLayoutManager(this)
-//        rvIssues.adapter = RVAIssues(issueDetailsList)
-//        rvIssues.layoutManager = LinearLayoutManager(this)
-
-
     }
     fun callVolleyforBranches(pageNumber: Int) {
 
@@ -174,11 +75,13 @@ class RepositoryDetails : AppCompatActivity() {
                     }
                     else {
                         Log.d("Tarzan","else branch executed")
+                        loading.dismissProgressDialog()
                         }
 
                 },
                 { error ->
                     Toast.makeText(this, "No Branches Found", Toast.LENGTH_LONG).show()
+                    loading.dismissProgressDialog()
 
                 }
         )
@@ -215,6 +118,7 @@ class RepositoryDetails : AppCompatActivity() {
                 },
                 { error ->
                     Toast.makeText(this,"No Issues Found",Toast.LENGTH_LONG).show()
+                    loading.dismissProgressDialog()
 
                 }
         )

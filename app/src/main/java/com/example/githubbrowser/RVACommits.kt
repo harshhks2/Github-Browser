@@ -28,19 +28,10 @@ class RVACommits (private val dataSet: ArrayList<DataCommits>) : RecyclerView.Ad
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-//        if(viewType == 1) {
+
             val view = LayoutInflater.from(viewGroup.context)
                     .inflate(R.layout.commit_item, viewGroup, false)
             return ViewHolder(view)
-//        }
-//        else {
-//            val view = LayoutInflater.from(viewGroup.context)
-//                    .inflate(R.layout.load_more, viewGroup, false)
-//            return ViewHolder(view)
-//        }
-
-
-
 
     }
 
@@ -54,12 +45,6 @@ class RVACommits (private val dataSet: ArrayList<DataCommits>) : RecyclerView.Ad
         }
 
     }
-
-//    override fun getItemViewType(position: Int): Int {
-//        if(position >= dataSet.size-1)
-//        return 2
-//        else return 1
-//    }
 
     override fun getItemCount() = dataSet.size
 

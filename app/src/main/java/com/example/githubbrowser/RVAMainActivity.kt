@@ -90,37 +90,9 @@ class RVAMainActivity(private val dataSet: ArrayList<DataRepository>) :
             else Toast.makeText(context,"Error",Toast.LENGTH_LONG).show()
         }
 
-
-
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
 
-//    fun callVolley(context: Context, owner: String, name: String) {
-//        val queue = Volley.newRequestQueue(context)
-//        val url = "https://api.github.com/repos/${owner}/${name}"
-//        var text: String
-//        //Toast.makeText(this, url, Toast.LENGTH_LONG).show()
-//        //val url = "https://api.github.com/repos/harshhks2/RoutineMaker"
-//        //val url = "https://www.metaweather.com//api/${owner}/${repo}/"
-//
-//        val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
-//                { response -> text = response.getString("description").toString()
-//                    if(text == "null") basicText = "No"
-//                    basicText=text
-//
-//                },
-//                { error ->
-//                    basicText = "Not Available"
-//                }
-//        )
-//
-//        queue.add(jsonObjectRequest)
-//
-//    }
-//    companion object{
-//        var basicText = "Not Available"
-//    }
 
 }

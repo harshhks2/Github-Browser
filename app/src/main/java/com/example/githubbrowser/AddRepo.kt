@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -51,25 +52,35 @@ class AddRepo : AppCompatActivity() {
                         //Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
                     }
                     else {
-                        Toast.makeText(this, "Please Fill All Data", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this, "Please Fill All Data", Toast.LENGTH_SHORT).show()
+                        showAlertDialog("Please Fill All The Fields")
                     }
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
 
                 },
                 { error ->
-                    Toast.makeText(this, "Repository Not Found", Toast.LENGTH_LONG).show()
+                    //Toast.makeText(this, "Repository Not Found", Toast.LENGTH_LONG).show()
+                    showAlertDialog("Repository Not Found")
+
                 }
+
             )
 
             queue.add(jsonObjectRequest)
 
-
-
-
         }
 
+    }
+    fun showAlertDialog(message: String){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Error")
+        builder.setMessage(message)
+        builder.setPositiveButton("Ok") { dialog, which ->
 
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
 
     }
 
