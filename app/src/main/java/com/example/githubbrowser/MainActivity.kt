@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         btAddNow = findViewById(R.id.btAddNow)
         rvRepositories = findViewById(R.id.rvRepositories)
         llMainScreen = findViewById(R.id.llMainScreen)
+//        val loading = ProgressDialog(this)
+//        loading.startProgressDialog()
 
 
 

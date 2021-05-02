@@ -32,8 +32,8 @@
                 android:minLines="1"
                 android:text="Issue Title not Available"
                 android:textColor="@color/black"
-                android:textSize="24sp"
-                android:textStyle="bold"
+                android:textSize="@dimen/font_size_5"
+                android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +45,7 @@
                 android:layout_marginBottom="2dp"
                 android:text="Issue Creator"
                 android:textColor="@color/light_black"
-                android:textSize="24sp"
+                android:textSize="@dimen/font_size_3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardView3" />
 

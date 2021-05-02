@@ -34,19 +34,19 @@
                     android:layout_margin="6dp"
                     android:text="@string/repo_name"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/font_size_6"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvDetailsPageRepoDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
+                    android:layout_margin="2dp"
                     android:maxLines="2"
                     android:minLines="1"
                     android:text="@string/description"
                     android:textColor="@color/light_black"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/font_size_4" />
 
             </LinearLayout>
 
