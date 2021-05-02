@@ -2,6 +2,7 @@ package com.example.githubbrowser
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -25,22 +26,39 @@ class RVACommits (private val dataSet: ArrayList<DataCommits>) : RecyclerView.Ad
 
         }
     }
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.commit_item, viewGroup, false)
+        if(viewType == 1) {
+            val view = LayoutInflater.from(viewGroup.context)
+                    .inflate(R.layout.commit_item, viewGroup, false)
+            return ViewHolder(view)
+        }
+        else {
+            val view = LayoutInflater.from(viewGroup.context)
+                    .inflate(R.layout.load_more, viewGroup, false)
+            return ViewHolder(view)
+        }
 
 
-        return ViewHolder(view)
+
+
     }
 
     override fun onBindViewHolder(viewHolder:ViewHolder, position: Int) {
-        if(!dataSet.isNullOrEmpty()) {
+        if(!dataSet.isNullOrEmpty() && position < dataSet.size-1) {
             viewHolder.tvCommitDate.text = dataSet[position].commitDate.subSequence(0,10)
             viewHolder.tvCommitMessage.text = dataSet[position].commitMessage
             viewHolder.tvUserName.text = dataSet[position].userName
             Glide.with(viewHolder.ivUserImage.context).load(dataSet[position].userImageURL).into(viewHolder.ivUserImage)
+
         }
 
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        if(position >= dataSet.size-1)
+        return 2
+        else return 1
     }
 
     override fun getItemCount() = dataSet.size

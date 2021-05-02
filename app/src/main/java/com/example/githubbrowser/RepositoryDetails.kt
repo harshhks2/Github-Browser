@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.tabs.TabLayout
@@ -27,6 +29,7 @@ class RepositoryDetails : AppCompatActivity() {
     private lateinit var description: String
     private var branchDetailsList = ArrayList<DataBranches>()
     private var issueDetailsList = ArrayList<DataIssues>()
+    private lateinit var queue1: RequestQueue
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,55 +47,15 @@ class RepositoryDetails : AppCompatActivity() {
 
         tvRepoName.text = name
         tvDescription.text = description
+        queue1 = Volley.newRequestQueue(this)
+        callVolleyforBranches(1)
+        callVolleyforIssues(1)
+
+
 //        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 //        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val queue1 = Volley.newRequestQueue(this)
-        val url1 = "https://api.github.com/repos/${owner}/${tvRepoName.text}/branches"
-        var text1 = "Not Available"
 
-
-        val jsonArrayRequest1 = JsonArrayRequest(Request.Method.GET, url1, null,
-                { response ->
-                    for(i in 0..response.length()-1) {
-                        val responseObj = response.getJSONObject(i)
-                        val commitObj = responseObj.getJSONObject("commit")
-                        val branch = DataBranches(owner,name,responseObj.getString("name"), commitObj.getString("sha"))
-                        branchDetailsList.add(branch)
-                    }
-
-                },
-                { error ->
-                    Toast.makeText(this,"No Branches Found",Toast.LENGTH_LONG).show()
-
-                }
-        )
-        queue1.add(jsonArrayRequest1)
-//        val branch = DataBranches(owner,name,"name", "sha")
-//        branchDetailsList.add(branch)
-
-
-        val url2 = "https://api.github.com/repos/${owner}/${name}/issues?state=open"
-        var text2 = "Not Available"
-
-
-        val jsonArrayRequest2 = JsonArrayRequest(Request.Method.GET, url2, null,
-                { response ->
-                    for(i in 0..response.length()-1) {
-                        val responseObj = response.getJSONObject(i)
-                        val userObj = responseObj.getJSONObject("user")
-                        val issue = DataIssues(responseObj.getString("title"), userObj.getString("login"),userObj.getString("avatar_url"))
-                        issueDetailsList.add(issue)
-                        setAllViews()
-                    }
-
-                },
-                { error ->
-                    Toast.makeText(this,"No Issues Found",Toast.LENGTH_LONG).show()
-
-                }
-        )
-        queue1.add(jsonArrayRequest2)
 //        val issue = DataIssues("title", "login","avatar_url")
 //        issueDetailsList.add(issue)
 
@@ -185,6 +148,70 @@ class RepositoryDetails : AppCompatActivity() {
 //        rvBranches.layoutManager = LinearLayoutManager(this)
 //        rvIssues.adapter = RVAIssues(issueDetailsList)
 //        rvIssues.layoutManager = LinearLayoutManager(this)
+
+
+    }
+    fun callVolleyforBranches(pageNumber: Int) {
+
+        val url1 = "https://api.github.com/repos/${owner}/${tvRepoName.text}/branches?page=${pageNumber}"
+        var text1 = "Not Available"
+
+
+        val jsonArrayRequest1 = JsonArrayRequest(Request.Method.GET, url1, null,
+                { response ->
+                    if(response.length() > 0){
+                    for (i in 0..response.length() - 1) {
+                        val responseObj = response.getJSONObject(i)
+                        val commitObj = responseObj.getJSONObject("commit")
+                        val branch = DataBranches(owner, name, responseObj.getString("name"), commitObj.getString("sha"))
+                        branchDetailsList.add(branch)
+                        callVolleyforBranches(pageNumber+1)
+                    }
+                    }
+                    else {
+                        Log.d("Tarzan","else branch executed")
+                        }
+
+                },
+                { error ->
+                    Toast.makeText(this, "No Branches Found", Toast.LENGTH_LONG).show()
+
+                }
+        )
+        queue1.add(jsonArrayRequest1)
+//        val branch = DataBranches(owner,name,"name", "sha")
+//        branchDetailsList.add(branch)
+    }
+    fun callVolleyforIssues(pageNumber: Int) {
+
+        val url2 = "https://api.github.com/repos/${owner}/${name}/issues?page=${pageNumber}"
+        var text2 = "Not Available"
+
+
+        val jsonArrayRequest2 = JsonArrayRequest(Request.Method.GET, url2, null,
+                { response ->
+                    if(pageNumber<3) {
+                        for (i in 0..response.length() - 1) {
+                            val responseObj = response.getJSONObject(i)
+                            val userObj = responseObj.getJSONObject("user")
+                            val issue = DataIssues(responseObj.getString("title"), userObj.getString("login"), userObj.getString("avatar_url"))
+                            issueDetailsList.add(issue)
+                            callVolleyforIssues(pageNumber+1)
+
+                        }
+                    }
+                    else{
+                        Log.d("Tarzan","else issues executed")
+                        setAllViews()}
+
+
+                },
+                { error ->
+                    Toast.makeText(this,"No Issues Found",Toast.LENGTH_LONG).show()
+
+                }
+        )
+        queue1.add(jsonArrayRequest2)
 
 
     }
