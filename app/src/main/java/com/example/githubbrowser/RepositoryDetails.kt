@@ -50,6 +50,7 @@ class RepositoryDetails : AppCompatActivity() {
         tvDescription.text = description
         loading = ProgressDialog(this)
         loading.startProgressDialog()
+        this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         queue1 = Volley.newRequestQueue(this)
         callVolleyforBranches(1)
         callVolleyforIssues(1)
@@ -157,6 +158,9 @@ class RepositoryDetails : AppCompatActivity() {
                 val intent = Intent(Intent.ACTION_VIEW, webpage)
                 if (intent.resolveActivity(packageManager) != null)
                     startActivity(intent)}
+            android.R.id.home ->{
+                onBackPressed()
+            }
 
         }
         return true

@@ -2,6 +2,7 @@ package com.example.githubbrowser
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.AbsListView
 import android.widget.ProgressBar
@@ -40,6 +41,7 @@ class Commits : AppCompatActivity() {
         var pageNumber = 1
         rvCommits.adapter = RVACommits(commitDetailsList)
         rvCommits.layoutManager = manager
+        this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         callVolleyforCommit(pageNumber)
 
         rvCommits.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -62,7 +64,6 @@ class Commits : AppCompatActivity() {
                 }
             }
         })
-
 
     }
 
@@ -102,5 +103,13 @@ class Commits : AppCompatActivity() {
 
 
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
     }
 }
