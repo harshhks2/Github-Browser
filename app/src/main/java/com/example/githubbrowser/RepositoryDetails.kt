@@ -54,8 +54,8 @@ class RepositoryDetails : AppCompatActivity() {
         callVolleyforBranches(1)
         callVolleyforIssues(1)
 
-
     }
+
     fun callVolleyforBranches(pageNumber: Int) {
 
         val url1 = "https://api.github.com/repos/${owner}/${tvRepoName.text}/branches?page=${pageNumber}"
@@ -74,7 +74,6 @@ class RepositoryDetails : AppCompatActivity() {
                         callVolleyforBranches(pageNumber+1)
                     }
                     else {
-                        Log.d("Tarzan","else branch executed")
                         //loading.dismissProgressDialog()
                         }
 
@@ -86,8 +85,7 @@ class RepositoryDetails : AppCompatActivity() {
                 }
         )
         queue1.add(jsonArrayRequest1)
-//        val branch = DataBranches(owner,name,"name", "sha")
-//        branchDetailsList.add(branch)
+
     }
     fun callVolleyforIssues(pageNumber: Int) {
 
@@ -108,13 +106,9 @@ class RepositoryDetails : AppCompatActivity() {
                         callVolleyforIssues(pageNumber+1)
                     }
                     else{
-                        Log.d("Tarzan","else issues executed")
                         setAllViews()
-                        //loading.dismissProgressDialog()
-
+                        loading.dismissProgressDialog()
                     }
-
-
                 },
                 { error ->
                     Toast.makeText(this,"No Issues Found",Toast.LENGTH_LONG).show()
@@ -134,9 +128,6 @@ class RepositoryDetails : AppCompatActivity() {
 
         viewPager2.adapter = ViewPagerAdapter(this, fragmentList)
         var tabTitles = arrayOf("Branches", "Issues(${issueDetailsList.size})")
-
-
-
 
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             tab.text = tabTitles[position]
@@ -173,4 +164,5 @@ class RepositoryDetails : AppCompatActivity() {
     companion object{
         lateinit var loading: ProgressDialog
     }
+
 }

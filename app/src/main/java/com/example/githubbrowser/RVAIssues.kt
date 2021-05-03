@@ -23,7 +23,6 @@ class RVAIssues (private val dataSet: ArrayList<DataIssues>) :
             tvIssueCreator = view.findViewById(R.id.tvIssueCreator)
             ivAvatar = view.findViewById(R.id.ivAvatar)
 
-
         }
     }
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -40,12 +39,13 @@ class RVAIssues (private val dataSet: ArrayList<DataIssues>) :
             viewHolder.tvIssueCreator.text = dataSet[position].issueCreator
             Glide.with(viewHolder.ivAvatar.context).load(dataSet[position].avatarURL).into(viewHolder.ivAvatar)
         }
-        RepositoryDetails.loading.dismissProgressDialog()
+       // RepositoryDetails.loading.dismissProgressDialog()
 
     }
 
     override fun onViewAttachedToWindow(holder: ViewHolder) {
         super.onViewAttachedToWindow(holder)
+
 
     }
 
