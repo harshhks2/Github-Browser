@@ -16,6 +16,7 @@ class RVACommits (private val dataSet: ArrayList<DataCommits>) : RecyclerView.Ad
         val tvCommitMessage: TextView
         val ivUserImage: ImageView
         val tvUserName: TextView
+        val tvShaInitials: TextView
 
         init {
             // Define click listener for the ViewHolder's View.
@@ -23,6 +24,7 @@ class RVACommits (private val dataSet: ArrayList<DataCommits>) : RecyclerView.Ad
             tvCommitMessage = view.findViewById(R.id.tvCommitMessage)
             ivUserImage = view.findViewById(R.id.ivUserImage)
             tvUserName= view.findViewById(R.id.tvUserName)
+            tvShaInitials = view.findViewById(R.id.tvShaInitials)
 
         }
     }
@@ -40,6 +42,7 @@ class RVACommits (private val dataSet: ArrayList<DataCommits>) : RecyclerView.Ad
             viewHolder.tvCommitDate.text = dataSet[position].commitDate.subSequence(0,10)
             viewHolder.tvCommitMessage.text = dataSet[position].commitMessage
             viewHolder.tvUserName.text = dataSet[position].userName
+            viewHolder.tvShaInitials.text = dataSet[position].sha.subSequence(0,7)
             Glide.with(viewHolder.ivUserImage.context).load(dataSet[position].userImageURL).into(viewHolder.ivUserImage)
 
         }

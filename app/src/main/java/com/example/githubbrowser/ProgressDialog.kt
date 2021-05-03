@@ -14,6 +14,7 @@ class ProgressDialog(private val myactivity: Activity ) {
         builder.setCancelable(true)
         dialog = builder.create()
         dialog.show()
+        //dialog.setCancelable(false)
     }
     fun dismissProgressDialog()
     {

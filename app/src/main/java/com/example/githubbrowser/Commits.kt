@@ -1,6 +1,7 @@
 package com.example.githubbrowser
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AbsListView
 import android.widget.ProgressBar
@@ -75,11 +76,15 @@ class Commits : AppCompatActivity() {
                 { response ->
                     for (i in 0..response.length() - 1) {
                         val responseObj = response.getJSONObject(i)
+                        //Log.d("Tarzan",responseObj.toString())
                         val commitObj = responseObj.getJSONObject("commit")
+                        //Log.d("Tarzan",commitObj.toString())
                         val authorObj = commitObj.getJSONObject("author")
+                        //Log.d("Tarzan",authorObj.toString())
                         val authorImageObj = responseObj.getJSONObject("author")
+                        //Log.d("Tarzan",authorImageObj.toString())
                         val commit = DataCommits(authorObj.getString("date"), commitObj.getString("message"),
-                                authorObj.getString("name"), authorImageObj.getString("avatar_url"))
+                                authorObj.getString("name"), authorImageObj.getString("avatar_url"),responseObj.getString("sha"))
                         commitDetailsList.add(commit)
                     }
 //                    rvCommits.adapter = RVACommits(commitDetailsList)
