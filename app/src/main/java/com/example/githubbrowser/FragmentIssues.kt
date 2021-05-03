@@ -23,9 +23,10 @@ class FragmentIssues(private val issueDetailsList: ArrayList<DataIssues>) : Frag
         rvIssues = view.findViewById(R.id.rvIssues)
         rvIssues.adapter = RVAIssues(issueDetailsList)
         rvIssues.layoutManager = LinearLayoutManager(rvIssues.context)
-        Handler().postDelayed({
-            rvIssues.adapter?.notifyDataSetChanged()
-        }, 1000)
+//        Handler().postDelayed({
+//            rvIssues.adapter?.notifyDataSetChanged()
+//        }, 1000)
+
 
         return view
     }

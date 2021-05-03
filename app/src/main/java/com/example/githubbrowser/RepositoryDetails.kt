@@ -30,7 +30,7 @@ class RepositoryDetails : AppCompatActivity() {
     private var branchDetailsList = ArrayList<DataBranches>()
     private var issueDetailsList = ArrayList<DataIssues>()
     private lateinit var queue1: RequestQueue
-    private lateinit var loading: ProgressDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,13 +75,13 @@ class RepositoryDetails : AppCompatActivity() {
                     }
                     else {
                         Log.d("Tarzan","else branch executed")
-                        loading.dismissProgressDialog()
+                        //loading.dismissProgressDialog()
                         }
 
                 },
                 { error ->
                     Toast.makeText(this, "No Branches Found", Toast.LENGTH_LONG).show()
-                    loading.dismissProgressDialog()
+                    //loading.dismissProgressDialog()
 
                 }
         )
@@ -110,7 +110,7 @@ class RepositoryDetails : AppCompatActivity() {
                     else{
                         Log.d("Tarzan","else issues executed")
                         setAllViews()
-                        loading.dismissProgressDialog()
+                        //loading.dismissProgressDialog()
 
                     }
 
@@ -118,7 +118,7 @@ class RepositoryDetails : AppCompatActivity() {
                 },
                 { error ->
                     Toast.makeText(this,"No Issues Found",Toast.LENGTH_LONG).show()
-                    loading.dismissProgressDialog()
+                    //loading.dismissProgressDialog()
 
                 }
         )
@@ -169,5 +169,8 @@ class RepositoryDetails : AppCompatActivity() {
 
         }
         return true
+    }
+    companion object{
+        lateinit var loading: ProgressDialog
     }
 }
